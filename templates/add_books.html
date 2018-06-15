@@ -1,0 +1,90 @@
+<!--
+创建时间 : 2018/03/31
+版本号 : V2
+文档名 : add_books.html
+编辑人 : he_wm
+作 用 : 图书管理-添加图书模块
+源存储位置 : D:\pycharm\python\BMS\templates\add_books.html
+代码添加及修改说明:
+    1、2018/04/03 : 修改了form表单action的提交方式
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>添加图书</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/title-log.ico' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-3-3-7/css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap-3-3-7/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<div class="container">
+<div class="col-md-12">
+        {% include 'base/nav_menu.html' %}
+    </div>
+    <div class="col-md-12" style="margin-top: 200px">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">图书信息</h3>
+            </div>
+            <div class="panel-body">
+                {#加载信息 开始#}
+                <form class="form-horizontal" action="{% url 'add_books' %}" method="post">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label for="input_name" class="col-sm-2 control-label">书名</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="input_name" name="book_name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_aut" class="col-sm-2 control-label">作者</label>
+                        <div class="col-sm-6">
+                            <lable>
+
+                                {#显示所有作者方法 开始#}
+                                <select name="book_aut" multiple>
+                                    {% for aut_l in aut_list %}
+                                        <option value="{{ aut_l.id }}">{{ aut_l.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                {#显示所有作者方法 结束#}
+
+                            </lable>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_data" class="col-sm-2 control-label">出版日期</label>
+                        <div class="col-sm-6">
+                            <input type="date" class="form-control" id="input_data" name="book_date" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_press" class="col-sm-2 control-label">出版社</label>
+                        <div>
+                            <select id="input_press" class="col-sm-6 btn btn-default" name="book_press"
+                                    style="margin-left: 5px">
+                                {#显示所有出版社方法 开始#}
+                                {% for press_l in press_list %}
+                                    <option value="{{ press_l.id }}">{{ press_l.publisher }}</option>
+                                {% endfor %}
+                                {# 显示所有出版社方法 结束#}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-6 col-sm-2 text-right">
+                            <input type="submit" class="btn btn-default" value="提交">
+                        </div>
+                    </div>
+                </form>
+                {#加载信息 结束#}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

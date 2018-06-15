@@ -1,0 +1,41 @@
+<!--
+创建时间 : 218/04/06
+版本号 : V1
+文档名 : nav_menu
+编辑人 : he_wm
+作 用 : 横向菜单栏组件
+源存储位置 : D:\pycharm\python\BMS_V2\templates\base\nav_menu.html
+代码添加及修改说明:
+    修该说明 :
+        1、2018/04/03 : 
+        2、
+    添加说明 :
+        1、
+        2、
+-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">大头菜单</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="#">菜单一</a></li>
+                <li><a href="#">菜单二</a></li>
+                <li><a href="#">菜单三</a></li>
+                <li><a href="#">菜单四</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 40px">
+                <li><a href="{% url 'sign_out' %}">注销登陆</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>

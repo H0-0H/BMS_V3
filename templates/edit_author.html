@@ -1,0 +1,70 @@
+<!--
+创建时间 : 2018/03/31
+版本号 : V2
+文档名 : edit_author.html
+编辑人 : he_wm
+作 用 : 图书管理系统-修改作者模块
+源存储位置 : D:\pycharm\python\BMS\templates\edit_author.html
+代码添加及修改说明:
+    1、2018/04/03 : 修改了form表单提交方式 action=
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>修改作者</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/title-log.ico' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-3-3-7/css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap-3-3-7/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="col-md-12">
+        {% include 'base/nav_menu.html' %}
+    </div>
+    <div class="col-md-12" style="margin-top: 200px">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">作者信息</h3>
+            </div>
+            <div class="panel-body">
+                {#加载信息 开始#}
+                <form class="form-horizontal" action="{% url 'edit_author' author_list.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group" hidden>
+                        <label for="input_id" class="col-sm-2 control-label">作者id</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="input_id" name="author_id"
+                                   value="{{ author_list.id }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_name" class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="input_name" name="author_name"
+                                   value="{{ author_list.name }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_data" class="col-sm-2 control-label">出生日期</label>
+                        <div class="col-sm-6">
+                            <input type="date" class="form-control" id="input_data" name="author_date"
+                                   value="{{ author_list.birthday|date:'Y-m-d' }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-6 col-sm-2 text-right">
+                            <input type="submit" class="btn btn-default" value="提交">
+                        </div>
+                    </div>
+                </form>
+                {#加载信息 结束#}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

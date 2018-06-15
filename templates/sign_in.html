@@ -1,0 +1,87 @@
+<!--
+创建时间 : 2018/03/31
+修改时间 : 2018/04/03
+版本号 : V2
+文档名 : sign_in
+编辑人 : he_wm
+作 用 : 图书管理登录界面
+源存储位置 :D:\pycharm\python\BMS\templates\sign_in.html
+修改及增加功能记录:
+    1、2018/04/03:form表单提交方式改为活的方式
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>图书管理登录界面</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/title-log.ico' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap-3-3-7/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row" style="padding-bottom: 200px">
+        <div class="col-md-12"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-4" style="padding-bottom:20px;">
+            <h2 class="form-signin-heading text-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图书管理系统</h2>
+        </div>
+    </div>
+    <form class="form-horizontal" action="" method="post">
+{#        action也可以写成{{ request.get_full_path }}#}
+        {% csrf_token %}
+        <div class="col-md-4"></div>
+        <div class="form-group">
+            <label for="input_user1" class="col-md-1 control-label">用户</label>
+            <div class="col-md-3">
+                <input type="text" id="input_user1" class="form-control" name="user">
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="form-group">
+            <label for="input_password1" class="col-md-1 control-label">密码</label>
+            <div class="col-md-3">
+                <input type="password" class="form-control" id="input_password1" name="password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> 记住我 <br/><span>{{ error }}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5"></div>
+        <div class="form-group">
+            <div class="col-md-1">
+                <input type="submit" class="btn btn-default btn-block btn-primary" value="登陆">
+            </div>
+
+{#            预留注册功能  开始#}
+
+                        <div class="col-md-1 col-md-offset-1">
+                            <a href="{% url 'register' %}" class="btn btn-default btn-block btn-primary">注册</a>
+            </div>
+
+{#            预留注册功能  结束#}
+            <!--<div class="col-md-1"></div>-->
+        </div>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>

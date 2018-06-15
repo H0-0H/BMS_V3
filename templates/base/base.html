@@ -1,0 +1,98 @@
+<!--
+创建时间 : 2018/04/04
+版本号 : V1
+文档名 : base.html
+编辑人 : he_wm
+作 用 : 出版社，作者，图书主界面的母版
+源存储位置 : D:\pycharm\python\BMS_V2\templates\base\base.html
+代码添加及修改说明:
+    修该说明 :
+        1、2018/04/03 : 
+        2、
+    添加说明 :
+        1、
+        2、
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN" debug="true">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>控制台</title>
+    {% load static %}
+{#    <link rel="icon" href="/static/img/title-log.ico">#}
+    <link rel="icon" href="{% static 'img/title-log.ico' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap-3-3-7/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!--页面使用自定义CSS-->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+</head>
+
+<body style="" rlt="1">
+{% include 'base/nav_menu.html' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+               <li class="{% block author %}{% endblock %}"><a href="{% url 'author_dashboard' %}">作者管理界面</a></li>
+                <li class="{% block books %}{% endblock %}"><a href="{% url 'book_dashboard' %}">图书管理界面</a></li>
+                <li class="{% block press %}{% endblock %}"><a href="{% url 'press_dashboard' %}">出版社管理界面</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        {% block countent %}
+        
+        {% endblock %}
+                <!--面板body结束-->
+            </div>
+            <!--面板结束-->
+        </div>
+    </div>
+</div>
+
+<!--模态框 开始-->
+<div id="my-Modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon1">邮箱</span>
+                    <input type="text" class="form-control" placeholder="填写邮箱" aria-describedby="sizing-addon2">
+                </div>
+                </p>
+                <p>
+                <div class="input-group">
+                    <span class="input-group-addon" id="sizing-addon2">密码</span>
+                    <input type="text" class="form-control" placeholder="填写密码" aria-describedby="sizing-addon2">
+                </div>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--模态框 结束-->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/bootstrap-3-3-7/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

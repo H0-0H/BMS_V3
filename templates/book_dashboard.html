@@ -1,0 +1,103 @@
+<!--
+创建时间 : 2018/03/31
+版本号 : V2
+文档名 : book_dashboard.html
+编辑人 : he_wm
+作 用 : 图书管理-图书管理主控制模块
+源存储位置 : D:\pycharm\python\BMS\templates\book_dashboard.html
+代码添加及修改说明:
+    1、2018/04/03 : 修改了所有a标签的链接方式
+-->
+{% extends 'base/base.html' %}
+{% block countent %}
+    <h1 class="page-header">图书管理系统
+        <small>图书</small>
+    </h1>
+    <!--面板开始-->
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            图书管理
+        </div>
+        <div class="panel-body">
+            <div class="row my-table-toolbar">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">Go!</button>
+                                </span>
+                    </div><!-- /input-group -->
+                </div>
+                <div class="col-md-3 pull-right text-right">
+                    <a href="{% url 'add_books' %}" class="btn btn-success" data-toggle="modal">新页面添加</a>
+                    <a href="" class="btn btn-success" data-toggle="modal" data-target="#my-Modal">添加</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="bs-example" data-example-id="striped-table">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>数据库ID</th>
+                                <th>书名</th>
+                                <th>作者</th>
+                                <th>出版日期</th>
+                                <th>出版社</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for i in book_list %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ i.id }}</td>
+                                    <td>{{ i.title }}</td>
+                                    {#显示图书作者方法 开始#}
+                                    <td>
+                                        {% for aut in i.author_set.all %}
+                                            {{ aut.name }}
+                                        {% endfor %}
+                                    </td>
+                                    {#显示图书作者方法 结束#}
+
+                                    {#显示出版日期方法 开始#}
+                                    <td>{{ i.date_pub|date:'Y-m-d' }}</td>
+                                    {#显示出版日期方法 结束#}
+
+                                    <td>{{ i.the_press.publisher }}</td>
+                                    <td class="text-center">
+                                        <a href="{% url 'edit_books' i.id %}" class="btn btn-success">编辑</a>
+                                        <a href="{% url 'del_books' i.id %}" class="btn btn-danger">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="bs-example" data-example-id="disabled-active-pagination">
+                <nav aria-label="..." class="text-right">
+                    <ul class="pagination">
+                        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a>
+                        </li>
+                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!--面板body结束-->
+    </div>
+    <!--面板结束-->
+{% endblock %}
+
+{% block books %}
+    active
+{% endblock %}

@@ -1,0 +1,112 @@
+<!--
+创建时间 : 2018/04/09
+版本号 : V1
+文档名 : register.html
+编辑人 : he_wm
+作 用 : 图书管理---注册模块
+源存储位置 : D:\pycharm\python\BMS_V3\templates\register.html
+代码添加及修改说明:
+    1、2018/04/03 :
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/title-log.ico' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap-3-3-7/css/bootstrap.min.css' %}">
+
+</head>
+<body>
+<div class="container">
+    <div class="col-md-12">
+        {% include 'base/nav_menu.html' %}
+    </div>
+    <div class="col-md-12" style="margin-top: 200px">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">个人信息</h3>
+            </div>
+            <div class="panel-body">
+                {#加载信息 开始#}
+                <form class="form-horizontal" action="{% url 'register' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="input_name" class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="input_name" name="input_username">
+                        </div>
+                        <div class="col-sm-3 text-danger">
+                            <b>
+                                <span id="error_name" class="text-left" style=" display:block;padding: 10px 0;"></span>
+                            </b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_password1" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="input_password1" name="input_password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input_password2" class="col-sm-2 control-label">确认密码</label>
+                        <div class="col-sm-6">
+                            <input type="password" class="form-control" id="input_password2" name="input_password2">
+                        </div>
+                        <div class="col-sm-3 text-danger">
+                            <b>
+                                <span id="error_password" class="text-left" style=" display:block;padding: 10px 0;"></span>
+                            </b>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-6 col-sm-2 text-right">
+                            <input type="submit" class="btn btn-default" value="提交">
+                        </div>
+                    </div>
+                </form>
+                {#加载信息 结束#}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'bootstrap-3-3-7/js/bootstrap.min.js' %}"></script>
+<script>
+    //为id=input_name绑定光标离开事件
+    $('#input_name').on('blur', function () {
+        //向后端发送ajax请求
+        $.ajax({
+            url:{% url 'register_name_ajax' %},
+            //  /register_ajax/,
+            type: 'POST',
+            data: {'username': $('#input_name').val(), 'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()},
+            success: function (msg) {
+            //将接收到的回复信息显示在span标签中
+                $('#error_name').text(msg)
+            }
+        })
+    })
+</script>
+<script>
+    //为id=input_password2绑定光标事件
+    $('#input_password2').on('blur', function () {
+        //向后端发送ajax请求
+        $.ajax({
+            url:{% url 'register_password_ajax' %},
+            type: 'POST',
+            data: {'input_password1': $('#input_password1').val(), 'input_password2': $('#input_password2').val(),
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()},
+            success: function (msg) {
+                //将接收到的回复信息显示在span标签中
+                $('#error_password').text(msg)
+            }
+        })
+    })
+</script>
+<script src="{% static 'js/my_test_username.js' %}"></script>
+
+</body>
+</html>

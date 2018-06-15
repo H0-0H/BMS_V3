@@ -1,0 +1,45 @@
+<!--
+创建时间 : 2018/03/31
+版本号 : V2
+文档名 : cs.html
+编辑人 : he_wm
+作 用 : 测试链接模块
+源存储位置 : D:\pycharm\python\BMS\templates\cs.html
+代码添加及修改说明:
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cs</title>
+</head>
+<body>
+<h1>测试成功</h1>
+<form action="{% url 'cs2' %}" method="get">
+    <input type="text" id="i1" name="i1" value="{{ i1 }}"> +
+    <input type="text" id="i2" name="i2" value="{{ i2 }}"> =
+    <input type="text" id="ret" name="ret" value="{{ ret }}">
+    <input id="b1" type="button" value="发送AJAX请求">
+    <input type="submit" value="submit提交">
+</form>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script>
+    $('#b1').on('click', function () {
+{#        点击b1标签做的事情#}
+        var i1 = $('#i1').val();
+        var i2 = $('#i2').val();
+{#        把两个数发送到后端相加#}
+        $.ajax({
+            url:'{% url 'cs' %}',
+            type:'GET',
+            data:{'i1':i1,'i2':i2},
+            success:function (arg) {
+                $('#ret').val(arg)
+            }
+        })
+    })
+</script>
+
+</body>
+</html>
